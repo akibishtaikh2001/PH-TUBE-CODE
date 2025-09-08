@@ -12,10 +12,24 @@ const loadCatagoise = () => {
 
 }
 
+// {
+//     "category_id": "1001",
+//     "category": "Music"
+// }
+
 // Create DisplayCatagories
-const displayCatagoise = (data) => {
-    // add Data in html
-    console.log(data);
+const displayCatagoise = (categories) => {
+    const categoryContainer = document.getElementById('catagories');
+  categories.forEach((item) => {
+    console.log(item);
+    //create a button
+    const button = document.createElement('button');
+    button.classList = "btn";
+    button.innerText = item.category;
+
+    // add button to catagory container
+    categoryContainer.appendChild(button);
+  })
     
 }
 
