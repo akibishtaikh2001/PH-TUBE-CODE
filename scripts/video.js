@@ -1,6 +1,36 @@
 console.log('video script added');
-// 1- Fetch, Load and show Catagorise on html
 
+
+function getTimeString(time) {
+    // Year: considering 365 days (365 * 24 * 60 * 60 = 31536000 seconds)
+    const year = parseInt(time / 31536000);
+
+    // Remaining seconds after years
+    let remaining = time % 31536000;
+
+    // Month: 30 days (30 * 24 * 60 * 60 = 2592000 seconds)
+    const month = parseInt(remaining / 2592000);
+    remaining = remaining % 2592000;
+
+    // Days
+    const day = parseInt(remaining / 86400);
+    remaining = remaining % 86400;
+
+    // Hours
+    const hour = parseInt(remaining / 3600);
+    remaining = remaining % 3600;
+
+    // Minutes
+    const minute = parseInt(remaining / 60);
+
+    // Seconds
+    const second = remaining % 60;
+
+    return `${year} year ${month} month ${day} day ${hour} hour ${minute} minute ${second} second ago`;
+}
+
+
+// 1- Fetch, Load and show Catagorise on html
 // Create loadCatagorige
 const loadCatagoise = () => {
 
@@ -53,7 +83,10 @@ const displayVideos = (videos) => {
       src=${video.thumbnail}
       class="h-full w-full object-cover"
       alt="Shoes" />
-      <span class =" absolute right-2 bottom-2 bg-black text-white rounded p-1 "> ${video.others.posted_date} </span>
+      ${video.others.posted_date?.length == 0 ? ""
+                : `<span class =" absolute right-2 bottom-2 bg-black text-white rounded p-1 "> ${getTimeString(video.others.posted_date)} </span>`
+            }
+      
   </figure>
   <div class="px-0 py-2 flex gap-2">
     <div>
@@ -63,7 +96,7 @@ const displayVideos = (videos) => {
     <h2 class=" font-bold ">${video.title}</h2>
     <div class=" flex items-center gap "> 
     <p class=" text-gray-400 "> ${video.authors[0].profile_name}  </p>
-    ${video.authors[0].verified === true ?  `<img class=" w-5 " src="https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000" />
+    ${video.authors[0].verified === true ? `<img class=" w-5 " src="https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000" />
     </div>` : ""}
     <p> </p>
     </div>
