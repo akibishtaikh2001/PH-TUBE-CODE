@@ -50,7 +50,7 @@ const loadCatagoise = () => {
 
 }
 
-const loadVideos = (searchText ="") => {
+const loadVideos = (searchText = "") => {
 
     // fetch the data
     fetch(
@@ -78,7 +78,7 @@ const loadCatagoryVideos = (id) => {
 
 }
 
-const loadDetails = async (videoId) =>{
+const loadDetails = async (videoId) => {
     console.log(videoId);
     const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
     const res = await fetch(url);
@@ -90,7 +90,7 @@ const displayDetails = (video) => {
     const detailContainer = document.getElementById('modal_content');
 
     detailContainer.innerHTML =
-    `
+        `
     <img src=${video.thumbnail} />
     <p>${video.description} </p>
     `
@@ -98,7 +98,7 @@ const displayDetails = (video) => {
     // way-1
     // document.getElementById("showModalData").click();
     // way-2
-     document.getElementById("customModal").showModal();
+    document.getElementById("customModal").showModal();
 }
 
 // const cardDemo = {
@@ -167,15 +167,13 @@ const displayVideos = (videos) => {
     <div class=" flex items-center gap-2 "> 
     <p class=" text-gray-400 "> ${video.authors[0].profile_name}  </p>
 
-    ${
-        video.authors[0].verified === true ? `<img class=" w-5 " src="https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000" />
+    ${video.authors[0].verified === true ? `<img class=" w-5 " src="https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000" />
     </div>` : ""
-     
-     }
 
-    <p> <button onclick="loadDetails('${
-        video.video_id
-    }')" class="btn btn-sm btn-error">details</button> </p>
+            }
+
+    <p> <button onclick="loadDetails('${video.video_id
+            }')" class="btn btn-sm btn-error">details</button> </p>
     </div>
   </div>
         `
@@ -211,11 +209,11 @@ const displayCatagoise = (categories) => {
 
 }
 
-document.getElementById('search_input').addEventListener('keyup', (e)=>{
+document.getElementById('search_input').addEventListener('keyup', (e) => {
     loadVideos(e.target.value);
     console.log(e.target.value);
-    
-    
+
+
 })
 loadCatagoise();
 loadVideos();
