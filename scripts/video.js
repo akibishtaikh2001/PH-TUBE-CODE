@@ -29,6 +29,14 @@ function getTimeString(time) {
     return `${year} year ${month} month ${day} day ${hour} hour ${minute} minute ${second} second ago`;
 }
 
+const removeActiveClass = () => {
+    const buttons = document.getElementsByClassName('category_btn')
+    console.log(buttons);
+    for (let btn of buttons) {
+        btn.classList.remove('active');
+    }
+
+}
 
 // 1- Fetch, Load and show Catagorise on html
 // Create loadCatagorige
@@ -52,11 +60,18 @@ const loadVideos = () => {
 
 }
 
-const loadCatagoryvideos = (id) => {
+const loadCatagoryVideos = (id) => {
     // alert(id);
     fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
         .then((res) => res.json())
-        .then((data) => displayVideos(data.category))
+        .then((data) => {
+            // sobaike active class remove korao
+            removeActiveClass();
+            //id er class k active korai
+            const activeButton = document.getElementById(`btn_${id}`)
+            activeButton.classList.add('active');
+            displayVideos(data.category)
+        })
         .catch((error) => console.log(error));
 
 }
@@ -87,7 +102,7 @@ const displayVideos = (videos) => {
     if (videos.length == 0) {
         videoContainer.classList.remove('grid');
         videoContainer.innerHTML =
-         `
+            `
         <div class=" min-h-[300px] w-full flex flrx-col gap-5 justify-center items-center">
         <img src="asstes/Icon.png" />
         </div>
@@ -151,9 +166,10 @@ const displayCatagoise = (categories) => {
         const buttonContainer = document.createElement('div');
         buttonContainer.innerHTML =
             `
-       <button onClick="loadCatagoryvideos(${item.category_id})" class="btn">
+       <button id="btn_${item.category_id}" onClick="loadCatagoryVideos(${item.category_id})" class=" btn category_btn">
        ${item.category}
        </button>
+
 
        `
 
